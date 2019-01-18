@@ -88,6 +88,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Bluetooth
 PRODUCT_PACKAGES += \
 	libbthost_if
+	
+# Biometrics
+PRODUCT_PACKAGES += \
+    android.hardware.biometrics.fingerprint@2.1-service.xiaomi_wayne
+
+PRODUCT_PACKAGES += \
+    org.ifaa.android.manager
+
+PRODUCT_BOOT_JARS += \
+    org.ifaa.android.manager
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -95,8 +105,6 @@ PRODUCT_PACKAGES += \
 	android.hardware.camera.provider@2.4-impl:32 \
 	android.hardware.camera.provider@2.4-service \
 	camera.device@3.2-impl \
-	libxml2 \
-	Snap \
 	vendor.qti.hardware.camera.device@1.0 \
 	vendor.qti.hardware.camera.device@1.0_vendor
 
@@ -153,13 +161,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
 
-# FM packages
-PRODUCT_PACKAGES += \
-	libqcomfm_jni \
-	android.hardware.broadcastradio@1.0-impl \
-	FM2 \
-	qcom.fmradio \
-	qcom.fmradio.xml
 
 # Framework RRO
 PRODUCT_ENFORCE_RRO_TARGETS := \
@@ -182,6 +183,9 @@ PRODUCT_COPY_FILES += \
 	frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
 	frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml
 
+# GoogleCamera
+PRODUCT_PACKAGES += \
+        GoogleCamera
 # GPS
 PRODUCT_COPY_FILES += \
 	$(PLATFORM_PATH)/configs/gps/apdr.conf:$(TARGET_COPY_OUT_VENDOR)/etc/apdr.conf \
