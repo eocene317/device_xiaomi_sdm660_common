@@ -554,6 +554,7 @@
             <instance>default</instance>
         </interface>
     </hal>
+<<<<<<< HEAD
 	<hal format="hidl" optional="true">
         <name>vendor.xiaomi.hardware.mlipay</name>
         <transport>hwbinder</transport>
@@ -563,4 +564,6 @@
             <instance>default</instance>
         </interface>
     </hal>
+=======
+>>>>>>> parent of 0c69130... Add Alipay Support and Remove useless FM and Snap
 </compatibility-matrix>
