@@ -145,6 +145,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
 	fingerprintd \
 	android.hardware.biometrics.fingerprint@2.1-service.xiaomi_sdm660
+PRODUCT_PACKAGES += \
+    org.ifaa.android.manager
+
+ PRODUCT_BOOT_JARS += \
+    org.ifaa.android.manager
 
 PRODUCT_COPY_FILES += \
 	frameworks/native/data/etc/android.hardware.fingerprint.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.fingerprint.xml
