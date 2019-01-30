@@ -1,30 +1,36 @@
 /*
- * Copyright (C) 2017 The Android Open Source Project
- * Copyright (C) 2018 The LineageOS Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_wayne"
+#
+# Copyright (C) 2018 The Xiaomi-SDM660 Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-#include <cutils/properties.h>
+#
+# This file sets variables that control the way modules are built
+# thorughout the system. It should not be used to conditionally
+# disable makefiles (the proper mechanism to control what gets
+# included in a build is to use PRODUCT_PACKAGES in a product
+# definition file).
+#
+ */
+#define LOG_TAG "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_sdm660"
+#define LOG_VERBOSE "android.hardware.biometrics.fingerprint@2.1-service.xiaomi_sdm660"
 
 #include <hardware/hw_auth_token.h>
 
 #include <hardware/hardware.h>
 #include <hardware/fingerprint.h>
 #include "BiometricsFingerprint.h"
-#include "Hardware.h"
-
+#include <cutils/properties.h>
 #include <inttypes.h>
 #include <unistd.h>
 
@@ -214,27 +220,12 @@ IBiometricsFingerprint* BiometricsFingerprint::getInstance() {
     return sInstance;
 }
 
-void setFpVendorProp(const char *fp_vendor) {
-    property_set("persist.sys.fp.vendor", fp_vendor);
-}
-
 fingerprint_device_t* getDeviceForVendor(const char *class_name)
 {
     const hw_module_t *hw_module = nullptr;
     int err;
 
-    if (!strcmp(class_name, "fpc")) {
-        setFpVendorProp("fpc");
-        err = load("/system/vendor/lib64/hw/fingerprint.fpc.so", &hw_module);
-    } else if (!strcmp(class_name, "gdx")) {
-        setFpVendorProp("goodix");
-        err = load("/system/vendor/lib64/hw/fingerprint.goodix.so", &hw_module);
-    } else {
-        setFpVendorProp("none");
-        ALOGE("No fingerprint module class specified.");
-        err = 1;
-    }
-
+    err = hw_get_module_by_class(FINGERPRINT_HARDWARE_MODULE_ID, class_name, &hw_module);
     if (err) {
         ALOGE("Failed to get fingerprint module: class %s, error %d", class_name, err);
         return nullptr;
@@ -273,20 +264,32 @@ fingerprint_device_t* getDeviceForVendor(const char *class_name)
     return fp_device;
 }
 
+void setFpVendorProp(const char *fp_vendor) {
+    property_set("persist.sys.fp.vendor", fp_vendor);
+    property_set("ro.boot.fpsensor", fp_vendor);
+}
+
 fingerprint_device_t* getFingerprintDevice()
 {
     fingerprint_device_t *fp_device;
-    char class_name[PROPERTY_VALUE_MAX];
 
-    property_get("ro.boot.fpsensor",
-        class_name, NULL);
-
-    fp_device = getDeviceForVendor(class_name);
+    fp_device = getDeviceForVendor("fpc");
     if (fp_device == nullptr) {
-        ALOGE("Failed to load %s fingerprint module", class_name);
+        ALOGE("Failed to load fpc fingerprint module");
     } else {
+        setFpVendorProp("fpc");
         return fp_device;
     }
+
+    fp_device = getDeviceForVendor("goodix");
+    if (fp_device == nullptr) {
+        ALOGE("Failed to load goodix fingerprint module");
+    } else {
+        setFpVendorProp("goodix");
+        return fp_device;
+    }
+    setFpVendorProp("none");
+
     return nullptr;
 }
 
