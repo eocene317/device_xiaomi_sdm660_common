@@ -21,21 +21,19 @@
 # definition file).
 #
 
-# Platform Path
-PLATFORM_PATH := device/xiaomi/sdm660-common
-
 # Inherit from those products. Most specific first.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/product_launched_with_o_mr1.mk)
 $(call inherit-product, build/target/product/embedded.mk)
-$(call inherit-product-if-exists, vendor/xiaomi/MiuiCamera/config.mk)
+#$(call inherit-product-if-exists, vendor/xiaomi/MiuiCamera/config.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS := device/xiaomi/sdm660-common/overlay
 
-# Platform properties
-$(call inherit-product, $(PLATFORM_PATH)/platform_prop.mk)
+# Platform
+PLATFORM_PATH := device/xiaomi/sdm660-common
+$(call inherit-product, $(PLATFORM_PATH)/prop.mk)
 
 # Android_filesystem_config
 PRODUCT_PACKAGES += \
@@ -50,6 +48,13 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
 	external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/com.dsi.ant.antradio_library.xml
+
+# Alipay
+PRODUCT_PACKAGES += \
+         org.ifaa.android.manager
+
+PRODUCT_BOOT_JARS += \
+         org.ifaa.android.manager
 
 # Audio
 PRODUCT_PACKAGES += \

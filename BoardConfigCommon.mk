@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2018 The Xiaomi-SDM660 Project
+# Copyright (C) 2019 The Xiaomi-SDM660 Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -284,11 +284,6 @@ PRODUCT_COMPATIBLE_PROPERTY_OVERRIDE := true
 PRODUCT_ACTIONABLE_COMPATIBLE_PROPERTY_DISABLE=true
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 PRODUCT_VENDOR_MOVE_ENABLED := true
-
-# TWRP Support
-ifeq ($(WITH_TWRP),true)
--include $(PLATFORM_PATH)/twrp.mk
-endif
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
