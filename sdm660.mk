@@ -107,6 +107,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	cneapiclient \
 	com.quicinc.cne
+	
+# Dirac
+PRODUCT_PACKAGES += \
+	Dirac
 
 # Display
 PRODUCT_PACKAGES += \
