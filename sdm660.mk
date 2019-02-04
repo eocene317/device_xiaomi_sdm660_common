@@ -173,9 +173,6 @@ PRODUCT_PACKAGES += \
 # GMS
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
 
-# GoogleCamera
-PRODUCT_PACKAGES += \
-        GoogleCamera
 
 # Google Media Codec
 PRODUCT_COPY_FILES += \
