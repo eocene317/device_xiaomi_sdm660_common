@@ -458,3 +458,7 @@ PRODUCT_BOOT_JARS += \
     WfdCommon
 PRODUCT_PACKAGES += \
 		     libnl
+
+# ThermalController app
+PRODUCT_PACKAGES += \
+    ThermalController
