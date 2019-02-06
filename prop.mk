@@ -68,6 +68,12 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Brightness
 PRODUCT_PROPERTY_OVERRIDES += \
 	sys.autobrightness_optimize=true
+	
+# Build Fingerprint
+PRODUCT_BUILD_PROP_OVERRIDES += \
+	BUILD_FINGERPRINT=google/crosshatch/crosshatch:9/PQ2A.190205.001/5163636:user/release-keys \
+	PRIVATE_BUILD_DESC="crosshatch-user 9 PQ2A.190205.001 5163636 release-keys"
+
 
 # Camera
 PRODUCT_PROPERTY_OVERRIDES += \
